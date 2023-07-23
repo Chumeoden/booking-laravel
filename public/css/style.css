@@ -1,0 +1,135 @@
+/* Reset CSS */
+body, h1, h2, h3, h4, h5, h6, p, form, input, button, a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header img {
+    max-width: 100px;
+}
+
+header h1 {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.quick-login {
+    margin-top: 20px;
+}
+
+.quick-login h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.quick-login a {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+}
+
+.quick-login a:hover {
+    background-color: #f0f0f0;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+footer a {
+    display: block;
+    margin-bottom: 5px;
+    color: #007bff;
+    text-decoration: none;
+}
+/* Nút Đăng nhập */
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Nút Google */
+.button-google {
+    background-color: #dd4b39; /* Đỏ */
+    color: #fff;
+}
+
+/* Nút Facebook */
+.button-facebook {
+    background-color: #3b5998; /* Xanh */
+    color: #fff;
+}

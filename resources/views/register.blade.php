@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Trang Đăng ký - Booking.com</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-login-register.css') }}">
 </head>
 <body>
     <div class="container">

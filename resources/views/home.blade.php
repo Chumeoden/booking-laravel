@@ -2,77 +2,28 @@
 <html>
 <head>
     <title>Trang chủ</title>
-    <style>
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #ccc;
-            display: inline-block;
-            cursor: pointer;
-        }
+    <link rel="stylesheet" href="{{ asset('css/style-home-page.css') }}">
 
-        .user-menu {
-            display: none;
-            position: absolute;
-            top: 60px; /* Để bảng nhỏ hiển thị bên dưới avatar */
-            right: 0;
-            background-color: #f9f9f9;
-            padding: 8px;
-            border: 1px solid #ccc;
-        }
-
-        /* Thêm CSS để đảo ngược vị trí của phần hiển thị khi đăng nhập */
-        .user-info {
-            float: right;
-            margin-right: 20px;
-        }
-
-        .nav-links {
-            float: right;
-        }
-
-        /* Đặt kích thước của logo thành 200px */
-        .logo {
-            width: 200px;
-        }
-
-        /* CSS cho các nút đăng nhập và đăng ký */
-        .auth-button {
-            padding: 10px 20px;
-            background-color: #fff;
-            color: #00f;
-            border: 2px solid #00f;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-left: 10px;
-        }
-
-        /* CSS cho màu chữ màu xanh */
-        .auth-button:hover {
-            background-color: #00f;
-            color: #fff;
-        }
-    </style>
 </head>
 <body>
     <!-- Hiển thị logo với kích thước 200px -->
     <img src="{{ asset('images/logo-booking-login.png') }}" alt="Booking.com Logo" class="logo">
-    
     @if(session('success'))
     <div>
         <p style="color: green;">{{ session('success') }}</p>
     </div>
     @endif
+    
 
+    
     <!-- Hiển thị nút đăng nhập và đăng ký nếu người dùng chưa đăng nhập -->
     @guest
-        <!-- Đảo ngược vị trí của các nút đăng nhập và đăng ký -->
-        <div class="nav-links">
+    <!-- Đảo ngược vị trí của các nút đăng nhập và đăng ký -->
+    <div class="nav-links">
             <a href="/login" class="auth-button">Đăng nhập</a>
             <a href="/register" class="auth-button">Đăng ký</a>
         </div>
-    @else
+        @else
         <!-- Hiển thị avatar người dùng và thông tin người dùng -->
         <div class="user-info">
             <div class="user-avatar" id="userAvatar"></div>
@@ -91,7 +42,7 @@
             <script>
                 var avatar = document.getElementById('userAvatar');
                 var menu = document.getElementById('userMenu');
-
+                
                 avatar.addEventListener('click', function() {
                     if (menu.style.display === 'block') {
                         menu.style.display = 'none';
@@ -99,9 +50,21 @@
                         menu.style.display = 'block';
                     }
                 });
-            </script>
+                </script>
         </div>
-    @endguest
-
+        @endguest
+<div id="menu">
+    <ul>
+    <li><a href="#">Trang chủ</a></li>
+    <li><a href="#">Diễn đàn</a></li>
+    <li><a href="#">Tin tức</a></li>
+    <li><a href="#">Hỏi đáp</a></li>
+    <li><a href="#">Liên hệ</a></li>
+    </ul>
+    </div>
+        <div class="banner">
+            <h1>Online Booking</h1>
+        </div>
+    </div>
 </body>
 </html>

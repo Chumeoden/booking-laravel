@@ -1,0 +1,100 @@
+/*==Reset CSS==*/
+* {
+    margin: 0;
+    padding: 0;
+  }
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.user-menu {
+    display: none;
+    position: absolute;
+    top: 60px; /* Để bảng nhỏ hiển thị bên dưới avatar */
+    right: 0;
+    background-color: #f9f9f9;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Thêm CSS để đảo ngược vị trí của phần hiển thị khi đăng nhập */
+.user-info {
+    float: right;
+    margin-right: 20px;
+}
+
+/* Đặt kích thước của logo thành 200px */
+.logo {
+    width: 200px;
+}
+
+/* CSS cho các nút đăng nhập và đăng ký */
+.auth-button {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: rgb(69, 69, 146);
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 10px;
+    font-family: Arial, sans-serif;
+}
+
+/* CSS cho màu chữ màu xanh */
+.auth-button:hover {
+    background-color: rgb(82, 82, 184);
+    color: #fff;
+}
+
+/* CSS cho các nút Home, Service, Booking */
+.nav-links {
+    padding-top: 10px;
+      float: right;
+      margin-right: 20px;
+      font-family: Arial, sans-serif;
+  }
+
+.nav-links a {
+    color: #00f;
+    text-decoration: none;
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* CSS cho màu chữ màu xanh khi hover */
+.nav-links a:hover {
+    color: #000;
+    background-color: #00f;
+    color: #fff;
+}
+
+.banner h1 {
+    text-align: center;
+    padding-top: 6rem;
+}
+/*==Style cho menu===*/
+#menu ul {
+    background: #1F568B;
+    list-style-type: none;
+    text-align: center;
+  }
+  #menu ul {
+    background: #1F568B;
+    list-style-type: none;
+    overflow: hidden;
+    width: 100%;
+  }
+  #menu a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+  }
+  #menu a:hover {
+    background: #F1F1F1;
+    color: #333;
+  }

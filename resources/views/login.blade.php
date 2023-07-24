@@ -27,7 +27,7 @@
             </div>
 
             <!-- Nút Đăng nhập -->
-            <button type="submit">Đăng nhập</button>
+            <button type="submit">Login</button>
         </form>
 
         <!-- Liên kết Quên mật khẩu

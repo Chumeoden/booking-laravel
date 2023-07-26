@@ -1,69 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Trang chủ</title>
-    <link rel="stylesheet" href="{{ asset('css/style-home-page.css') }}">
-
+<link rel="stylesheet" href="{{ asset('css/style-home-page.css') }}">
 </head>
 <body>
-    <!-- Hiển thị logo với kích thước 200px -->
-    <img src="{{ asset('images/logo-booking-login.png') }}" alt="Booking.com Logo" class="logo">
-    @if(session('success'))
-    <div>
-        <p style="color: green;">{{ session('success') }}</p>
-    </div>
-    @endif
-    
 
-    
-    <!-- Hiển thị nút đăng nhập và đăng ký nếu người dùng chưa đăng nhập -->
-    @guest
-    <!-- Đảo ngược vị trí của các nút đăng nhập và đăng ký -->
-    <div class="nav-links">
-            <a href="/login" class="auth-button">Đăng nhập</a>
-            <a href="/register" class="auth-button">Đăng ký</a>
-        </div>
-        @else
-        <!-- Hiển thị avatar người dùng và thông tin người dùng -->
-        <div class="user-info">
-            <div class="user-avatar" id="userAvatar"></div>
-            
-            <!-- Hiển thị bảng nhỏ khi nhấp vào avatar -->
-            <div class="user-menu" id="userMenu">
-                <ul><span>{{ Auth::user()->name }}</span></ul>
-                <ul><a href="/user-profile">Xem thông tin tài khoản</a></ul>
-                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="auth-button">Đăng xuất</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
-                    @csrf
-                </form>
+    <!-- Nội dung trang -->
+    <!-- Phần Navbar -->
+    <div class="navbar">
+        <div class="navContainer">
+            <span class="logo">Booking.com</span>
+            <div class="navItems">
+                <button class="navButton">Đăng ký</button>
+                <button class="navButton">Đăng nhập</button>
             </div>
-
-            <!-- Script để xử lý sự kiện click vào avatar -->
-            <script>
-                var avatar = document.getElementById('userAvatar');
-                var menu = document.getElementById('userMenu');
-                
-                avatar.addEventListener('click', function() {
-                    if (menu.style.display === 'block') {
-                        menu.style.display = 'none';
-                    } else {
-                        menu.style.display = 'block';
-                    }
-                });
-                </script>
         </div>
-        @endguest
-<div id="menu">
-    <ul>
-    <li><a href="#">Trang chủ</a></li>
-    <li><a href="#">Diễn đàn</a></li>
-    <li><a href="#">Tin tức</a></li>
-    <li><a href="#">Hỏi đáp</a></li>
-    <li><a href="#">Liên hệ</a></li>
-    </ul>
     </div>
-        <div class="banner">
-            <h1>Online Booking</h1>
+    <!-- Phần Header -->
+    <div class="header">
+            <div class="headerList">
+                <div class="headerListItem active">
+                    <i class="fas fa-bed"></i>
+                    <span>Stays</span>
+                </div>
+                <div class="headerListItem">
+                    <i class="fas fa-plane"></i>
+                    <span>Flights</span>
+                </div>
+                <div class="headerListItem">
+                    <i class="fas fa-car"></i>
+                    <span>Car rentals</span>
+                </div>
+                <div class="headerListItem">
+                    <i class="fas fa-bed"></i>
+                    <span>Attractions</span>
+                </div>
+                <div class="headerListItem">
+                    <i class="fas fa-taxi"></i>
+                    <span>Airport taxis</span>
+                </div>
+            </div>
+                <h1 class="headerTitle">A lifetime of discounts? It's Genius.</h1>
+                <p class="headerDesc">
+                    Get rewarded for your travels – unlock instant savings of 10% or
+                    more with a free Booking.com account
+                </p>
+                <button class="headerBtn">Đăng nhập / Đăng ký</button>
+                <div class="headerSearch">
+                    <div class="headerSearchItem">
+                        <i class="fas fa-bed headerIcon"></i>
+                        <input
+                            type="text"
+                            placeholder="Bạn muốn đi đâu?"
+                            class="headerSearchInput"
+                            onChange="setDestination(event.target.value)"
+                        />
+                    </div>
+                    <div class="headerSearchItem">
+                        <i class="fas fa-calendar-days headerIcon"></i>
+                        <span
+                            onClick="setOpenDate(!openDate)"
+                            class="headerSearchText"></span>
+                            <div class="date">
+                                <!-- Chỗ này dùng để render component "DateRange" -->
+                                <!-- Tôi không dịch tiếp phần này vì đây là mã React và không thể hiển thị đầy đủ ở đây -->
+                            </div>
+
+                    </div>
+                    <div class="headerSearchItem">
+                        <i class="fas fa-person headerIcon"></i>
+                        <span
+                            onClick="setOpenOptions(!openOptions)"
+                            class="headerSearchText"></span>
+                            <div class="options">
+                                <div class="optionItem">
+                                    <span class="optionText">Người lớn</span>
+                                    <div class="optionCounter">
+                                        <button
+                                            class="optionCounterButton"
+                                            onClick="handleOption('adult', 'd')"
+                                        >
+                                            -
+                                        </button>
+                                        <button
+                                            class="optionCounterButton"
+                                            onClick="handleOption('adult', 'i')"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="optionItem">
+                                    <span class="optionText">Trẻ em</span>
+                                    <div class="optionCounter">
+                                        <button
+                                            class="optionCounterButton"
+                                            onClick="handleOption('children', 'd')"
+                                        >
+                                            -
+                                        </button>
+                                        <button
+                                            class="optionCounterButton"
+                                            onClick="handleOption('children', 'i')"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="optionItem">
+                                    <span class="optionText">Phòng</span>
+                                    <div class="optionCounter">
+                                        <button
+                                            class="optionCounterButton"
+                                            onClick="handleOption('room', 'd')"
+                                        >
+                                            -
+                                        </button>
+                                        <button
+                                            class="optionCounterButton"
+                                            onClick="handleOption('room', 'i')"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="headerSearchItem">
+                        <button class="headerBtn" onClick="handleSearch()">
+                            Tìm kiếm
+                        </button>
+                    </div>
+                </div>
         </div>
     </div>
 </body>

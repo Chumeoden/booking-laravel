@@ -7,15 +7,9 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('home');
-});
-
 // Trang đăng nhập
-Route::get('/login', [LoginController::class, 'showLoginForm']);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-
-// Xử lý đăng xuất
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Trang đăng ký
@@ -30,3 +24,4 @@ Route::get('/user-profile', [UserProfileController::class, 'show'])->middleware(
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/service', [HomeController::class, 'service'])->name('service');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
+

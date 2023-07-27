@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/style-home-page.css') }}">
     <title>Booking</title>
 </head>
@@ -14,35 +14,41 @@
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal()"><i class="ri-close-fill"></i></span>
-            <h2>{{ Auth::user()->name }}</h2>
-            <button onclick="logout()">Đăng xuất</button>
-            <button onclick="editProfile()">Chỉnh sửa profile</button>
+            @auth
+                <h2>{{ Auth::user()->name }}</h2>
+                <button data-action="logout">Đăng xuất</button>
+                <button data-action="editProfile">Chỉnh sửa profile</button>
+            @else
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            @endauth
         </div>
     </div>
 
     <script>
-        // JavaScript để điều khiển khung modal
-        document.addEventListener("DOMContentLoaded", function() {
-            const openModalBtn = document.querySelector(".user-icon a");
-            const modalOverlay = document.querySelector(".modal-overlay");
+    // JavaScript để điều khiển khung modal và logout
+    document.addEventListener("DOMContentLoaded", function () {
+        const openModalBtn = document.querySelector(".user-icon a");
+        const modalOverlay = document.querySelector(".modal-overlay");
 
-            function openModal() {
-                modalOverlay.style.display = "flex"; // Hiển thị khung modal
-            }
+        function openModal() {
+            modalOverlay.style.display = "flex"; // Hiển thị khung modal
+        }
 
-            function closeModal() {
-                modalOverlay.style.display = "none"; // Ẩn khung modal
-            }
+        function closeModal() {
+            modalOverlay.style.display = "none"; // Ẩn khung modal
+        }
 
-            function logout() {
-                fetch('/logout', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                })
+        function logout() {
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+            })
                 .then(response => {
                     if (response.ok) {
+                        closeModal(); // Đóng khung modal sau khi đăng xuất thành công
                         window.location.href = '/'; // Điều hướng về trang chủ sau khi đăng xuất
                     } else {
                         console.error('Có lỗi xảy ra khi đăng xuất');
@@ -51,16 +57,31 @@
                 .catch(error => {
                     console.error('Có lỗi xảy ra khi gửi yêu cầu đăng xuất', error);
                 });
-            }
+        }
 
-            openModalBtn.addEventListener("click", openModal);
-            modalOverlay.addEventListener("click", function(event) {
-                if (event.target === modalOverlay) {
-                    closeModal();
-                }
-            });
+        function editProfile() {
+            // Add your edit profile logic here
+            console.log('Edit profile clicked!');
+        }
+
+        openModalBtn.addEventListener("click", openModal);
+        modalOverlay.addEventListener("click", function (event) {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
         });
-    </script>
+
+        const logoutBtn = document.querySelector("#modal button[data-action='logout']");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", logout);
+        }
+
+        const editProfileBtn = document.querySelector("#modal button[data-action='editProfile']");
+        if (editProfileBtn) {
+            editProfileBtn.addEventListener("click", editProfile);
+        }
+    });
+</script>
 
     <nav>
         <div class="nav__logo"><a href="/">Booking.Com</a></div>
@@ -81,7 +102,7 @@
         <div class="header__image__container">
             <div class="header__content">
                 <h1>Enjoy Your Dream Vacation</h1>
-                <p>Book Hotels, Flights and stay packages at lowest price.</p>
+                <p>Book Hotels, Flights and stay packages at the lowest price.</p>
             </div>
             <div class="booking__container">
                 <form>

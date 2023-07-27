@@ -20,5 +20,16 @@ class HomeController extends Controller
     {
         return view('booking');
     }
+    public function search(Request $request)
+
+{
+
+$keyword = $request->input('keyword');
+
+$products = Product::where('name','like','%'.$keyword.'%')->get();
+
+return view('client.pages.search',compact('products'));
+
+}
 }
 

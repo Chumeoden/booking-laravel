@@ -1,268 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css'>
-    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ asset('css/style-home-page.css') }}">
+    <title>Booking</title>
+ truong
 </head>
+
 <body>
+
+    <!-- Khung modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()"><i class="ri-close-fill"></i></span>
+            <h2>{{ Auth::user()->name }}</h2>
+            <button onclick="logout()">Đăng xuất</button>
+            <button onclick="editProfile()">Chỉnh sửa profile</button>
+        </div>
+    </div>
+
     <script>
-        .slider .btn {
-  margin-top: 20px;
-}
+        // JavaScript để điều khiển khung modal
+        document.addEventListener("DOMContentLoaded", function() {
+            const openModalBtn = document.querySelector(".user-icon a");
+            const modalOverlay = document.querySelector(".modal-overlay");
 
-.section-search input {
-  padding: 5px !important;
-  font-size: 18px !important;
-  width: 90% !important;
-  border: #f4f4f4 3px solid !important;
-}
+            function openModal() {
+                modalOverlay.style.display = "flex"; // Hiển thị khung modal
+            }
 
-.section-follow .fa-4x {
-  margin: 5px 10px;
-}
+            function closeModal() {
+                modalOverlay.style.display = "none"; // Ẩn khung modal
+            }
 
-.section-contact h5 {
-  margin-bottom: 30px;
-}
+            function logout() {
+                fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/'; // Điều hướng về trang chủ sau khi đăng xuất
+                    } else {
+                        console.error('Có lỗi xảy ra khi đăng xuất');
+                    }
+                })
+                .catch(error => {
+                    console.error('Có lỗi xảy ra khi gửi yêu cầu đăng xuất', error);
+                });
+            }
 
+            openModalBtn.addEventListener("click", openModal);
+            modalOverlay.addEventListener("click", function(event) {
+                if (event.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+        });
     </script>
-    
-    
-      
-    
-      <!-- Section: Search -->
-      <section id="search" class="section section-search teal darken-1 white-text center scrollspy">
-        <div class="container">
-          <div class="row">
-            <div class="col s12">
-              <h3>Search Destinations</h3>
-              <div class="input-field">
-                <input class="white grey-text autocomplete" placeholder="Aruba, Cancun, etc..." type="text" id="autocomplete-input">
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    
-      <!-- Section: Icon Boxes -->
-      <section class="section section-icons grey lighten-4 center">
-        <div class="container">
-          <div class="row">
-            <div class="col s12 m4">
-              <div class="card-panel">
-                <i class="material-icons large teal-text">room</i>
-                <h4>Pick Where</h4>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem, velit.</p>
-              </div>
-            </div>
-            <div class="col s12 m4">
-              <div class="card-panel">
-                <i class="material-icons large teal-text">store</i>
-                <h4>Travel Shop</h4>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem, velit.</p>
-              </div>
-            </div>
-            <div class="col s12 m4">
-              <div class="card-panel">
-                <i class="material-icons large teal-text">airplanemode_active</i>
-                <h4>Fly Cheap</h4>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem, velit.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    
-      <!-- Section: Popular -->
-      <section id="popular" class="section section-popular scrollspy">
-        <div class="container">
-          <div class="row">
-            <h4 class="center">
-              <span class="teal-text">Popular</span> Places</h4>
-            <div class="col s12 m4">
-              <div class="card">
-                <div class="card-image">
-                  <img src="https://image.ibb.co/hbEMux/resort1.jpg" alt="">
-                  <span class="card-title">Cancun, Mexico</span>
-                </div>
-                <div class="card-content">
-                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas aliquid fugiat corporis laudantium, architecto
-                    delectus?
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m4">
-              <div class="card">
-                <div class="card-image">
-                  <img src="https://image.ibb.co/mn1egc/resort2.jpg" alt="">
-                  <span class="card-title">The Bahamas</span>
-                </div>
-                <div class="card-content">
-                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas aliquid fugiat corporis laudantium, architecto
-                    delectus?
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m4">
-              <div class="card">
-                <div class="card-image">
-                  <img src="https://image.ibb.co/mbCVnH/resort3.jpg" alt="">
-                  <span class="card-title">Nova Scotia</span>
-                </div>
-                <div class="card-content">
-                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas aliquid fugiat corporis laudantium, architecto
-                    delectus?
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s12 center">
-              <a href="#contact" class="btn btn-large grey darken-3">
-                <i class="material-icons left">send</i> Contact For Booking
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-    
-      <!-- Section: Follow -->
-      <section class="section section-follow teal darken-2 white-text center">
-        <div class="container">
-          <div class="row">
-            <div class="col s12">
-              <h4>Follow Travelville</h4>
-              <p>Follow us on social media for special offers</p>
-              <a href="htttps://facebook.com" target="_blank" class="white-text">
-                <i class="fab fa-facebook fa-4x"></i>
-              </a>
-              <a href="htttps://twitter.com" target="_blank" class="white-text">
-                <i class="fab fa-twitter fa-4x"></i>
-              </a>
-              <a href="htttps://linkedin.com" target="_blank" class="white-text">
-                <i class="fab fa-linkedin fa-4x"></i>
-              </a>
-              <a href="htttps://googleplus.com" target="_blank" class="white-text">
-                <i class="fab fa-google-plus fa-4x"></i>
-              </a>
-              <a href="htttps://pinterest.com" target="_blank" class="white-text">
-                <i class="fab fa-pinterest fa-4x"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-    
-      <!-- Section: Gallery -->
-      <section id="gallery" class="section section-gallery scrollspy">
-        <div class="container">
-          <h4 class="center">
-            <span class="teal-text">Photo </span> Gallery
-          </h4>
-          <div class="row">
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?beach" alt="">
-            </div>
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?travel" alt="">
-            </div>
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?nature" alt="">
-            </div>
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?beach, travel" alt="">
-            </div>
-          </div>
-    
-          <div class="row">
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?beaches" alt="">
-            </div>
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?traveling" alt="">
-            </div>
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?bridge" alt="">
-            </div>
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?boat, travel" alt="">
-            </div>
-          </div>
-    
-          <div class="row">
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?water" alt="">
-            </div>
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?building" alt="">
-            </div>
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?trees" alt="">
-            </div>
-            <div class="col s12 m3">
-              <img class="materialboxed responsive-img" src="https://source.unsplash.com/1600x900/?cruise" alt="">
-            </div>
-          </div>
-        </div>
-      </section>
-    
-      <!-- Section: Contact -->
-      <section id="contact" class="section section-contact scrollspy">
-        <div class="container">
-          <div class="row">
-            <div class="col s12 m6">
-              <div class="card-panel teal white-text center">
-                <i class="material-icons medium">email</i>
-                <h5>Contact Us For Booking</h5>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus sed praesentium delectus. Sit, mollitia
-                  quo. Veniam repellat voluptas ipsum doloremque?</p>
-              </div>
-              <ul class="collection with-header">
-                <li class="collection-header">
-                  <h4>Location</h4>
+
+    <nav>
+        <div class="nav__logo"><a href="/">Booking.Com</a></div>
+        <ul class="nav__links">
+            <li class="link"><a href="/">Home</a></li>
+            <li class="link"><a href="#">Book</a></li>
+            @auth
+                <li class="user-icon">
+                    <a href="javascript:void(0);"><i class="ri-account-pin-circle-fill"></i></a>
                 </li>
-                <li class="collection-item">Travelville Agency</li>
-                <li class="collection-item">555 Beach rd, Suite 33</li>
-                <li class="collection-item">Miami FL, 55555</li>
-              </ul>
+            @else
+                <li class="link"><a href="/login">Login</a></li>
+                <li class="link"><a href="/register">Register</a></li>
+            @endauth
+        </ul>
+    </nav>
+    <header class="section__container header__container">
+        <div class="header__image__container">
+            <div class="header__content">
+                <h1>Enjoy Your Dream Vacation</h1>
+                <p>Book Hotels, Flights and stay packages at lowest price.</p>
             </div>
-            <div class="col s12 m6">
-              <div class="card-panel grey lighten-3">
-                <h5>Please fill out this form</h5>
-                <div class="input-field">
-                  <input type="text" placeholder="Name" id="name">
-                  <label for="name">Name</label>
-                </div>
-                <div class="input-field">
-                  <input type="email" placeholder="Email" id="email">
-                  <label for="email">Email</label>
-                </div>
-                <div class="input-field">
-                  <input type="text" placeholder="Phone" id="phone">
-                  <label for="phone">Phone</label>
-                </div>
-                <div class="input-field">
-                  <textarea class="materialize-textarea" placeholder="Enter Message" id="message"></textarea>
-                  <label for="message">Message</label>
-                </div>
-                <input type="submit" value="Submit" class="btn">
-              </div>
+            <div class="booking__container">
+                <form>
+                    <div class="form__group">
+                        <div class="input__group">
+                            <input type="text" />
+                            <label>Location</label>
+                        </div>
+                        <p>Where are you going?</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="input__group">
+                            <input type="text" />
+                            <label>Check In</label>
+                        </div>
+                        <p>Add date</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="input__group">
+                            <input type="text" />
+                            <label>Check Out</label>
+                        </div>
+                        <p>Add date</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="input__group">
+                            <input type="text" />
+                            <label>Room</label>
+                        </div>
+                        <p>Room Type</p>
+                    </div>
+                </form>
+                <button class="btn"><i class="ri-search-line"></i></button>
             </div>
-          </div>
         </div>
-      </section>
-    
-      <!-- Footer -->
-      <footer class="section teal darken-2 white-text center">
-        <p class="flow-text">Travelville &copy; 2018</p>
-      </footer>
+    </header>
+
+    <section class="section__container popular__container">
+        <h2 class="section__header">Popular Hotels</h2>
+        <div class="popular__grid">
+            <div class="popular__card">
+                <img src="assets/hotel-1.jpg" alt="popular hotel" />
+                <div class="popular__content">
+                    <div class="popular__card__header">
+                        <h4>The Plaza Hotel</h4>
+                        <h4>$499</h4>
+                    </div>
+                    <p>New York City, USA</p>
+                </div>
+            </div>
+            <div class="popular__card">
+                <img src="assets/hotel-2.jpg" alt="popular hotel" />
+                <div class="popular__content">
+                    <div class="popular__card__header">
+                        <h4>Ritz Paris</h4>
+                        <h4>$549</h4>
+                    </div>
+                    <p>Paris, France</p>
+                </div>
+            </div>
+            <!-- ... Các phần tử của popular hotels khác ... -->
+        </div>
+    </section>
+
+    <section class="client">
+        <div class="section__container client__container">
+            <h2 class="section__header">What our client say</h2>
+            <div class="client__grid">
+                <div class="client__card">
+                    <img src="assets/client-1.jpg" alt="client" />
+                    <p>
+                        The booking process was seamless, and the confirmation was
+                        instant. I highly recommend WDM&amp;Co for hassle-free hotel bookings.
+                    </p>
+                </div>
+                <!-- ... Các phần tử client cards khác ... -->
+            </div>
+        </div>
+    </section>
+
+    <section class="section__container">
+        <div class="reward__container">
+            <p>100+ discount codes</p>
+            <h4>Join rewards and discover amazing discounts on your booking</h4>
+            <button class="reward__btn">Join Rewards</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="section__container footer__container">
+            <div class="footer__col">
+                <h3>WDM&amp;Co</h3>
+                <p>
+                    WDM&amp;Co is a premier hotel booking website that offers a seamless and
+                    convenient way to find and book accommodations worldwide.
+                </p>
+                <p>
+                    With a user-friendly interface and a vast selection of hotels,
+                    WDM&amp;Co aims to provide a stress-free experience for travelers
+                    seeking the perfect stay.
+                </p>
+            </div>
+            <div class="footer__col">
+                <h4>Company</h4>
+                <p>About Us</p>
+                <p>Our Team</p>
+                <p>Blog</p>
+                <p>Book</p>
+                <p>Contact Us</p>
+            </div>
+            <!-- ...foote ... -->
+        </div>
+        <div class="footer__bar">
+            Copyright © 2023 Web Design Mastery. All rights reserved.
+        </div>
+    </footer>
 </body>
+
 </html>
+>>>>>>> truong

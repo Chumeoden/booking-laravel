@@ -149,32 +149,51 @@
         </div>
     </header>
 
-    <section class="section__container popular__container">
-        <h2 class="section__header">Popular Hotels</h2>
-        <div class="popular__grid">
-            <div class="popular__card">
-                <img src="assets/hotel-1.jpg" alt="popular hotel" />
-                <div class="popular__content">
-                    <div class="popular__card__header">
-                        <h4>The Plaza Hotel</h4>
-                        <h4>$499</h4>
+    <section class="section__container products__container">
+    <h2 class="section__header">Featured Products</h2>
+    <div class="products__grid">
+        @foreach($products as $product)
+            <div class="product__card">
+            <img src="{{ asset('storage/images/' . $product->image) }}" alt="Product Image" />
+                <div class="product__content">
+                    <div class="product__card__header">
+                        <h4>{{ $product->name }}</h4>
+                        <h4>${{ $product->price }}</h4>
                     </div>
-                    <p>New York City, USA</p>
+                    <p>{{ $product->description }}</p>
                 </div>
             </div>
-            <div class="popular__card">
-                <img src="assets/hotel-2.jpg" alt="popular hotel" />
-                <div class="popular__content">
-                    <div class="popular__card__header">
-                        <h4>Ritz Paris</h4>
-                        <h4>$549</h4>
-                    </div>
-                    <p>Paris, France</p>
-                </div>
-            </div>
-            <!-- ... Các phần tử của popular hotels khác ... -->
+        @endforeach
+    </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const productCards = document.querySelectorAll(".product__card");
+    const popup = document.createElement("div");
+    popup.classList.add("popup");
+
+    function openPopup(imageSrc) {
+      popup.innerHTML = `
+        <div class="popup-content">
+          <span class="popup-close" onclick="closePopup()">&times;</span>
+          <img src="${imageSrc}" alt="Product Image" />
         </div>
-    </section>
+      `;
+      document.body.appendChild(popup);
+    }
+
+    function closePopup() {
+      popup.remove();
+    }
+
+    productCards.forEach((card) => {
+      const img = card.querySelector("img");
+      img.addEventListener("click", () => {
+        openPopup(img.src);
+      });
+    });
+  });
+</script>
 
     <section class="client">
         <div class="section__container client__container">

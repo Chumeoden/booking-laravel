@@ -26,78 +26,87 @@
     </div>
 
     <script>
-    // JavaScript để điều khiển khung modal và logout
-    document.addEventListener("DOMContentLoaded", function () {
-        const openModalBtn = document.querySelector(".user-icon a");
-        const modalOverlay = document.querySelector(".modal-overlay");
+        document.addEventListener("DOMContentLoaded", function () {
+            const openModalBtn = document.querySelector(".user-icon a");
+            const modalOverlay = document.querySelector(".modal-overlay");
 
-        function openModal() {
-            modalOverlay.style.display = "flex"; // Hiển thị khung modal
-        }
+            function openModal() {
+                modalOverlay.style.display = "flex"; // Hiển thị khung modal
+            }
 
-        function closeModal() {
-            modalOverlay.style.display = "none"; // Ẩn khung modal
-        }
+            function closeModal() {
+                modalOverlay.style.display = "none"; // Ẩn khung modal
+            }
 
-        function logout() {
-            fetch('/logout', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-            })
-                .then(response => {
-                    if (response.ok) {
-                        closeModal(); // Đóng khung modal sau khi đăng xuất thành công
-                        window.location.href = '/'; // Điều hướng về trang chủ sau khi đăng xuất
-                    } else {
-                        console.error('Có lỗi xảy ra khi đăng xuất');
-                    }
+            function logout() {
+                fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
                 })
-                .catch(error => {
-                    console.error('Có lỗi xảy ra khi gửi yêu cầu đăng xuất', error);
-                });
-        }
+                    .then(response => {
+                        if (response.ok) {
+                            closeModal(); // Đóng khung modal sau khi đăng xuất thành công
+                            window.location.href = '/'; // Điều hướng về trang chủ sau khi đăng xuất
+                        } else {
+                            console.error('Có lỗi xảy ra khi đăng xuất');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Có lỗi xảy ra khi gửi yêu cầu đăng xuất', error);
+                    });
+            }
 
-        function editProfile() {
-            // Add your edit profile logic here
-            console.log('Edit profile clicked!');
-        }
+            function editProfile() {
+                // Add your edit profile logic here
+                console.log('Edit profile clicked!');
+            }
 
-        openModalBtn.addEventListener("click", openModal);
-        modalOverlay.addEventListener("click", function (event) {
-            if (event.target === modalOverlay) {
+            openModalBtn.addEventListener("click", openModal);
+
+            // Hide the modal when the page loads if the user is not authenticated
+            if (!@json(Auth::check())) {
                 closeModal();
             }
+
+            modalOverlay.addEventListener("click", function (event) {
+                if (event.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+
+            const logoutBtn = document.querySelector("#modal button[data-action='logout']");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", logout);
+            }
+
+            const editProfileBtn = document.querySelector("#modal button[data-action='editProfile']");
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener("click", editProfile);
+            }
+
+            // Listen for logout event and close the modal after successful logout
+            window.addEventListener('logout', closeModal);
         });
+    </script>
 
-        const logoutBtn = document.querySelector("#modal button[data-action='logout']");
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", logout);
-        }
-
-        const editProfileBtn = document.querySelector("#modal button[data-action='editProfile']");
-        if (editProfileBtn) {
-            editProfileBtn.addEventListener("click", editProfile);
-        }
-    });
-</script>
-
-    <nav>
-        <div class="nav__logo"><a href="/">Booking.Com</a></div>
-        <ul class="nav__links">
-            <li class="link"><a href="/">Home</a></li>
-            <li class="link"><a href="#">Book</a></li>
-            @auth
-                <li class="user-icon">
-                    <a href="javascript:void(0);"><i class="ri-account-pin-circle-fill"></i></a>
-                </li>
-            @else
-                <li class="link"><a href="/login">Login</a></li>
-                <li class="link"><a href="/register">Register</a></li>
-            @endauth
-        </ul>
-    </nav>
+<nav>
+    <div class="nav__logo"><a href="/">Booking.Com</a></div>
+    <ul class="nav__links">
+        <li class="link"><a href="/">Home</a></li>
+        <li class="link"><a href="#">Book</a></li>
+        @auth
+            <li class="user-icon">
+                <!-- Hiển thị biểu tượng người dùng chỉ khi đã đăng nhập -->
+                <a href="javascript:void(0);"><i class="ri-account-pin-circle-fill"></i></a>
+            </li>
+        @else
+            <li class="link"><a href="/login">Login</a></li>
+            <li class="link"><a href="/register">Register</a></li>
+        @endauth
+    </ul>
+</nav>
     <header class="section__container header__container">
         <div class="header__image__container">
             <div class="header__content">

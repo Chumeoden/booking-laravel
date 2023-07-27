@@ -32,6 +32,6 @@ class LoginController extends Controller
     {
         Auth::logout();
         // Đăng xuất thành công, chuyển hướng người dùng về trang chủ
-        return redirect('/')->with('success', 'Đăng xuất thành công.');
+        return redirect('/login')->with('success', 'Đăng xuất thành công.');
     }
 }

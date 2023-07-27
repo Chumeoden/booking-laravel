@@ -16,7 +16,10 @@
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal()"><i class="ri-close-fill"></i></span>
             <h2>{{ Auth::user()->name }}</h2>
-            <button onclick="logout()">Đăng xuất</button>
+            <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng xuất</button>
+                <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
+                    @csrf
+                </form>
             <button onclick="editProfile()">Chỉnh sửa profile</button>
         </div>
     </div>

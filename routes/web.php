@@ -30,3 +30,5 @@ Route::get('/user-profile', [UserProfileController::class, 'show'])->middleware(
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/service', [HomeController::class, 'service'])->name('service');
 Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
+//Chuc nang search 
+Route::get('/search',[HomeController::class,'search']);

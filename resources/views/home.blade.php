@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet"/>
     <link rel="stylesheet" href="{{ asset('css/style-home-page.css') }}">
     <title>Booking</title>
- truong
+ 
 </head>
 
 <body>

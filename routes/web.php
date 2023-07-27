@@ -6,6 +6,9 @@ use App\Http\Controllers\RegisterController;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/admin', function () {
+    return view('dashboard');
+});
 
 // Trang đăng nhập
 Route::get('/login', [LoginController::class, 'showLoginForm']);

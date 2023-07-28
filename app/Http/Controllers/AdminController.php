@@ -30,10 +30,12 @@ class AdminController extends Controller
         $product->price = $request->input('price');
 
         // Xử lý tải ảnh lên và lưu đường dẫn vào cơ sở dữ liệu
+        // Xử lý tải ảnh lên và lưu đường dẫn vào cơ sở dữ liệu
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images');
+            $imagePath = $request->file('image')->store('public/images');
             $product->image = $imagePath;
         }
+
 
         $product->save();
 

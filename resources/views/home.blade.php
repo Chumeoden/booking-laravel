@@ -154,7 +154,7 @@
     <div class="products__grid">
         @foreach($products as $product)
             <div class="product__card">
-            <img src="{{ asset('storage/images/' . $product->image) }}" alt="Product Image" />
+            <img src="{{ Storage::url($product->image) }}" alt="Product Image" />
                 <div class="product__content">
                     <div class="product__card__header">
                         <h4>{{ $product->name }}</h4>

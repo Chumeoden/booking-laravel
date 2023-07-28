@@ -63,7 +63,7 @@ body {
 <body>
 @include('layouts.sidebar')
 @include('layouts.header')
-@include('layouts.main')
+
 
 
 </body>

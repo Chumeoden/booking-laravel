@@ -6,6 +6,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RoomsController;
 
 
 // Trang đăng nhập
@@ -30,3 +31,6 @@ Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
 Route::post('/admin', [AdminController::class, 'store'])->name('admin.store');
+
+
+
